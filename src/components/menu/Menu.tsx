@@ -1,5 +1,15 @@
 import { CloseIcon, HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, IconButton, Text, useColorMode, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    Flex,
+    HStack,
+    IconButton,
+    Text,
+    useColorMode,
+    useColorModeValue,
+    useDisclosure,
+} from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MdSchedule } from 'react-icons/md';
@@ -14,13 +24,13 @@ const Menu: React.FC = () => {
     const { toggleColorMode } = useColorMode();
 
     const dispatch = useAppDispatch();
-    const { user: authUser } = useAppSelector(state => state.auth);
+    const { user: authUser } = useAppSelector((state) => state.auth);
     const isAdmin = (authUser && authUser.role === 'Admin') || false;
 
     const Icon = useColorModeValue(MoonIcon, SunIcon);
 
     const logOut = useCallback(() => {
-        dispatch(authActions.logout())
+        dispatch(authActions.logout());
     }, [dispatch]);
 
     return (
@@ -34,35 +44,48 @@ const Menu: React.FC = () => {
                     display={{ md: 'none' }}
                     onClick={onToggle}
                 />
-                <HStack as='nav' spacing={4} display={{ base: 'none', md: 'flex' }} flexGrow={1} mx={8}>
-                    {isAdmin && adminLinks.map(({ label, target }, idx) => (
-                        <MenuLink key={idx} label={label} target={target} />
-                    ))}
-                    {authUser && userLinks.map(({ label, target }, idx) => (
-                        <MenuLink key={idx} label={label} target={target} />
-                    ))}
+                <HStack
+                    as="nav"
+                    spacing={4}
+                    display={{ base: 'none', md: 'flex' }}
+                    flexGrow={1}
+                    mx={8}
+                >
+                    {isAdmin &&
+                        adminLinks.map(({ label, target }, idx) => (
+                            <MenuLink key={idx} label={label} target={target} />
+                        ))}
+                    {authUser &&
+                        userLinks.map(({ label, target }, idx) => (
+                            <MenuLink key={idx} label={label} target={target} />
+                        ))}
                 </HStack>
                 <Flex alignItems={'center'}>
                     <HStack spacing={5}>
-                        <Button onClick={toggleColorMode} colorScheme={isAdmin ? 'red' : 'gray'}>
+                        <Button
+                            onClick={toggleColorMode}
+                            colorScheme={isAdmin ? 'red' : 'gray'}
+                        >
                             <Icon />
                         </Button>
                         {authUser ? (
-                            <Box display={'block'} onClick={logOut}>Abmelden</Box>
+                            <Box display={'block'} onClick={logOut}>
+                                Abmelden
+                            </Box>
                         ) : (
-                            <MenuLink label='Login' target='/user/login' />
+                            <MenuLink label="Login" target="/user/login" />
                         )}
                     </HStack>
                 </Flex>
             </Flex>
         </MenuContainer>
-    )
-}
+    );
+};
 
 type MenuContainerProps = {
     children: React.ReactElement;
     isAdmin: boolean;
-}
+};
 
 const MenuContainer: React.FC<MenuContainerProps> = ({ children, isAdmin }) => {
     const [menuHeight, setMenuHeight] = useState<number>(0);
@@ -77,7 +100,7 @@ const MenuContainer: React.FC<MenuContainerProps> = ({ children, isAdmin }) => {
             if (menuRef.current) {
                 setMenuHeight(menuRef.current.clientHeight);
             }
-        }
+        };
         handleResize();
         window.addEventListener('resize', handleResize);
     }, []);
@@ -85,7 +108,7 @@ const MenuContainer: React.FC<MenuContainerProps> = ({ children, isAdmin }) => {
     return (
         <Box id="menuContainer">
             <Box
-                as='header'
+                as="header"
                 ref={menuRef}
                 bg={useColorModeValue(bgLight, bgDark)}
                 px={4}
@@ -99,8 +122,8 @@ const MenuContainer: React.FC<MenuContainerProps> = ({ children, isAdmin }) => {
             </Box>
             <Box h={`${menuHeight}px`} />
         </Box>
-    )
-}
+    );
+};
 
 const Logo = (): JSX.Element => (
     <Box>
@@ -113,6 +136,6 @@ const Logo = (): JSX.Element => (
             </HStack>
         </Link>
     </Box>
-)
+);
 
 export default Menu;

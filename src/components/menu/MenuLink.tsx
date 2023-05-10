@@ -8,8 +8,8 @@ const MenuLink: React.FC<IMenuItem> = ({ label, target }) => (
         style={({ isActive }) => {
             return {
                 display: 'block',
-                fontWeight: isActive ? 'bold' : ''
-            }
+                fontWeight: isActive ? 'bold' : '',
+            };
         }}
     >
         {label}

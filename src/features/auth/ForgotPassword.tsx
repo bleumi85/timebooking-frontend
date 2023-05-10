@@ -11,17 +11,20 @@ export const ForgotPassword: React.FC = () => {
     const dispatch = useAppDispatch();
 
     // initial values
-    const initialValues: ForgotPasswordData = { email: '' }
+    const initialValues: ForgotPasswordData = { email: '' };
 
     // form validation rules
     const validationSchema = Yup.object().shape({
         email: Yup.string().email('E-Mail muss valide sein'),
     });
 
-    const onSubmit = async (values: ForgotPasswordData, { resetForm }: FormikHelpers<ForgotPasswordData>) => {
+    const onSubmit = async (
+        values: ForgotPasswordData,
+        { resetForm }: FormikHelpers<ForgotPasswordData>,
+    ) => {
         await dispatch(authActions.forgotPassword(values));
         resetForm();
-    }
+    };
 
     return (
         <>
@@ -34,7 +37,13 @@ export const ForgotPassword: React.FC = () => {
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ errors, handleChange, isSubmitting, touched, values }: FormikProps<ForgotPasswordData>) => (
+                    {({
+                        errors,
+                        handleChange,
+                        isSubmitting,
+                        touched,
+                        values,
+                    }: FormikProps<ForgotPasswordData>) => (
                         <Form>
                             <Stack
                                 spacing={4}
@@ -45,13 +54,13 @@ export const ForgotPassword: React.FC = () => {
                             >
                                 <Input
                                     isRequired
-                                    name='email'
-                                    label='E-Mail'
+                                    name="email"
+                                    label="E-Mail"
                                     value={values.email}
                                     onChange={handleChange}
                                     error={touched.email && errors.email}
                                 />
-                                <Button type='submit' isLoading={isSubmitting}>
+                                <Button type="submit" isLoading={isSubmitting}>
                                     Zurücksetzen
                                 </Button>
                             </Stack>
@@ -60,5 +69,5 @@ export const ForgotPassword: React.FC = () => {
                 </Formik>
             </Box>
         </>
-    )
-}
+    );
+};

@@ -4,9 +4,9 @@ import { Location, NavigateFunction } from 'react-router-dom';
 type tHistory = {
     navigate: null | NavigateFunction;
     location: null | Location;
-}
+};
 
 export const history: tHistory = {
     navigate: null,
-    location: null
+    location: null,
 };

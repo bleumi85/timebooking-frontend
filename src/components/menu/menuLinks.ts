@@ -9,6 +9,4 @@ export const userLinks: IMenuItem[] = [
     { label: 'Buchungen', target: 'schedules' },
 ];
 
-export const adminLinks: IMenuItem[] = [
-    { label: 'Admin', target: 'admin' }
-];
+export const adminLinks: IMenuItem[] = [{ label: 'Admin', target: 'admin' }];

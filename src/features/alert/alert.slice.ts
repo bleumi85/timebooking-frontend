@@ -15,17 +15,20 @@ export default alertSlice.reducer;
 function createInitialState(): AlertState {
     return {
         description: '',
-        type: null
-    }
+        type: null,
+    };
 }
 
 function createReducers() {
     return {
         success,
         error,
-    }
+    };
 
-    function success(state: AlertState, action: PayloadAction<string | { title: string, description: string }>) {
+    function success(
+        state: AlertState,
+        action: PayloadAction<string | { title: string; description: string }>,
+    ) {
         state.type = AlertType.SUCCESS;
         if (typeof action.payload === 'string') {
             state.description = action.payload;
@@ -35,7 +38,10 @@ function createReducers() {
         }
     }
 
-    function error(state: AlertState, action: PayloadAction<string | { title: string, description: string }>) {
+    function error(
+        state: AlertState,
+        action: PayloadAction<string | { title: string; description: string }>,
+    ) {
         state.type = AlertType.ERROR;
         if (typeof action.payload === 'string') {
             state.description = action.payload;

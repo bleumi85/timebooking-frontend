@@ -1,4 +1,13 @@
-import { Avatar, Box, Button, Heading, Spacer, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+    Avatar,
+    Box,
+    Button,
+    Heading,
+    Spacer,
+    Stack,
+    Text,
+    useColorModeValue,
+} from '@chakra-ui/react';
 import { AlertMessage, Input } from 'components/controls';
 import { Form, Formik, FormikProps } from 'formik';
 import { history } from 'helpers';
@@ -13,12 +22,14 @@ import { alertActions } from 'features/alert/alert.slice';
 const TokenStatus = {
     Validating: 'Validating',
     Valid: 'Valid',
-    Invalid: 'Invalid'
+    Invalid: 'Invalid',
 };
 
 export const ResetPassword: React.FC = () => {
     const [token, setToken] = useState<string>('');
-    const [tokenStatus, setTokenStatus] = useState<string>(TokenStatus.Validating);
+    const [tokenStatus, setTokenStatus] = useState<string>(
+        TokenStatus.Validating,
+    );
 
     const dispatch = useAppDispatch();
 
@@ -30,18 +41,19 @@ export const ResetPassword: React.FC = () => {
         const url_token = params.get('token');
 
         if (history.location && history.navigate) {
-            console.log(`navigate to ${history.location.pathname}`)
+            console.log(`navigate to ${history.location.pathname}`);
         }
 
         if (url_token) {
-            authService.validateResetToken(url_token)
+            authService
+                .validateResetToken(url_token)
                 .then(() => {
                     setToken(url_token);
                     setTokenStatus(TokenStatus.Valid);
                 })
                 .catch(() => {
-                    setTokenStatus(TokenStatus.Invalid)
-                })
+                    setTokenStatus(TokenStatus.Invalid);
+                });
         }
     }, []);
 
@@ -49,8 +61,8 @@ export const ResetPassword: React.FC = () => {
         // initial values
         const initialValues: ResetPasswordData = {
             password: 'Abcd1234',
-            confirmPassword: 'Abcd1234'
-        }
+            confirmPassword: 'Abcd1234',
+        };
 
         // form validation rules
         const validationSchema = Yup.object().shape({
@@ -59,17 +71,22 @@ export const ResetPassword: React.FC = () => {
         });
 
         const onSubmit = (values: ResetPasswordData) => {
-            authService.resetPassword(values, token)
+            authService
+                .resetPassword(values, token)
                 .then((res) => {
                     dispatch(alertActions.success(res.data.message));
                     if (history.navigate) {
-                        history.navigate('user/login')
+                        history.navigate('user/login');
                     }
                 })
                 .catch(() => {
-                    dispatch(alertActions.error('Da ist etwas gehörig schief gelaufen'))
-                })
-        }
+                    dispatch(
+                        alertActions.error(
+                            'Da ist etwas gehörig schief gelaufen',
+                        ),
+                    );
+                });
+        };
 
         return (
             <Box w={'100%'}>
@@ -78,7 +95,13 @@ export const ResetPassword: React.FC = () => {
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ errors, handleChange, isSubmitting, touched, values }: FormikProps<ResetPasswordData>) => (
+                    {({
+                        errors,
+                        handleChange,
+                        isSubmitting,
+                        touched,
+                        values,
+                    }: FormikProps<ResetPasswordData>) => (
                         <Form>
                             <Stack
                                 spacing={4}
@@ -104,9 +127,15 @@ export const ResetPassword: React.FC = () => {
                                     color={color}
                                     value={values.confirmPassword}
                                     onChange={handleChange}
-                                    error={touched.confirmPassword && errors.confirmPassword}
+                                    error={
+                                        touched.confirmPassword &&
+                                        errors.confirmPassword
+                                    }
                                 />
-                                <Button type={'submit'} isLoading={isSubmitting}>
+                                <Button
+                                    type={'submit'}
+                                    isLoading={isSubmitting}
+                                >
                                     Ok
                                 </Button>
                             </Stack>
@@ -114,37 +143,53 @@ export const ResetPassword: React.FC = () => {
                     )}
                 </Formik>
             </Box>
-        )
-    }
+        );
+    };
 
     const getBody = (): JSX.Element => {
         switch (tokenStatus) {
             case TokenStatus.Valid:
                 return getForm();
             case TokenStatus.Invalid:
-                return <AlertMessage status='error' title='Validierung fehlgeschlagen'>
-                    <Box>
-                        <Text>Wenn die Anfrage abgelaufen ist, klicke hier um das Passwort erneut zurückzusetzen</Text>
-                        <Link to="../forgot-password">
-                            <Button colorScheme={'red'} mt={2}>Klick</Button>
-                        </Link>
-                    </Box>
-                </AlertMessage>
+                return (
+                    <AlertMessage
+                        status="error"
+                        title="Validierung fehlgeschlagen"
+                    >
+                        <Box>
+                            <Text>
+                                Wenn die Anfrage abgelaufen ist, klicke hier um
+                                das Passwort erneut zurückzusetzen
+                            </Text>
+                            <Link to="../forgot-password">
+                                <Button colorScheme={'red'} mt={2}>
+                                    Klick
+                                </Button>
+                            </Link>
+                        </Box>
+                    </AlertMessage>
+                );
             case TokenStatus.Validating:
-                return <AlertMessage status='loading' title="Warten">
-                    Anfrage wird validiert
-                </AlertMessage>
+                return (
+                    <AlertMessage status="loading" title="Warten">
+                        Anfrage wird validiert
+                    </AlertMessage>
+                );
             default:
-                return <Text color={'red.500'}>Da ist etwas schief gelaufen</Text>
+                return (
+                    <Text color={'red.500'}>Da ist etwas schief gelaufen</Text>
+                );
         }
-    }
+    };
 
     return (
         <>
             <Avatar bg={'primary.500'} />
-            <Heading color={'primary.400'}>{token === '' ? 'Passwort zurücksetzen' : 'Neues Passwort'}</Heading>
+            <Heading color={'primary.400'}>
+                {token === '' ? 'Passwort zurücksetzen' : 'Neues Passwort'}
+            </Heading>
             <Spacer />
             {getBody()}
         </>
-    )
-}
+    );
+};

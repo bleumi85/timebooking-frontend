@@ -1,4 +1,10 @@
-import { Alert, AlertDescription, AlertIcon, AlertProps, AlertTitle } from '@chakra-ui/react';
+import {
+    Alert,
+    AlertDescription,
+    AlertIcon,
+    AlertProps,
+    AlertTitle,
+} from '@chakra-ui/react';
 import React from 'react';
 
 interface AlertMessageProps extends AlertProps {
@@ -6,7 +12,11 @@ interface AlertMessageProps extends AlertProps {
     children: string | React.ReactElement;
 }
 
-export const AlertMessage: React.FC<AlertMessageProps> = ({ title, children, ...rest }) => (
+export const AlertMessage: React.FC<AlertMessageProps> = ({
+    title,
+    children,
+    ...rest
+}) => (
     <Alert
         variant={'top-accent'}
         flexDirection={'column'}
@@ -19,8 +29,6 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({ title, children, ...
         <AlertTitle mt={4} mb={1} fontSize={'lg'}>
             {title}
         </AlertTitle>
-        <AlertDescription maxWidth={'sm'}>
-            {children}
-        </AlertDescription>
+        <AlertDescription maxWidth={'sm'}>{children}</AlertDescription>
     </Alert>
 );

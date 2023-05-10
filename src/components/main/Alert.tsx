@@ -3,7 +3,7 @@ import { useAppSelector } from 'app/hooks';
 import React, { useEffect } from 'react';
 
 const Alert: React.FC = () => {
-    const { type, title, description } = useAppSelector(state => state.alert);
+    const { type, title, description } = useAppSelector((state) => state.alert);
     const toast = useToast();
     const id = 'alert-id';
 
@@ -16,13 +16,13 @@ const Alert: React.FC = () => {
                     description,
                     status: `${type}`,
                     duration: 4000,
-                    isClosable: true
+                    isClosable: true,
                 });
             }
         }
-    })
+    });
 
     return null;
-}
+};
 
 export default Alert;

@@ -1,4 +1,15 @@
-import { Avatar, Box, Button, Flex, Grid, GridItem, Heading, Spacer, Stack, Text } from '@chakra-ui/react';
+import {
+    Avatar,
+    Box,
+    Button,
+    Flex,
+    Grid,
+    GridItem,
+    Heading,
+    Spacer,
+    Stack,
+    Text,
+} from '@chakra-ui/react';
 import { useAppDispatch } from 'app/hooks';
 import { Checkbox, Input } from 'components/controls';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
@@ -13,21 +24,33 @@ export const Register: React.FC = () => {
 
     // initial values
     const initialValues: RegisterData = {
-        userName: 'johnny.walker', firstName: 'Johnny', lastName: 'Walker', email: 'johnny@drinks.com', password: 'Abcd1234', confirmPassword: 'Abcd1234', acceptTerms: true,
-    }
+        userName: 'johnny.walker',
+        firstName: 'Johnny',
+        lastName: 'Walker',
+        email: 'johnny@drinks.com',
+        password: 'Abcd1234',
+        confirmPassword: 'Abcd1234',
+        acceptTerms: true,
+    };
 
     // form validation rules
     const validationSchema = Yup.object().shape({
         password: Yup.string().required('Passwort!').min(6),
-        confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passswörter müssen übereinstimmen'),
-        acceptTerms: Yup.boolean().oneOf([true], 'Accept terms!')
+        confirmPassword: Yup.string().oneOf(
+            [Yup.ref('password')],
+            'Passswörter müssen übereinstimmen',
+        ),
+        acceptTerms: Yup.boolean().oneOf([true], 'Accept terms!'),
     });
 
     // submit
-    const onSubmit = async (values: RegisterData, { resetForm }: FormikHelpers<RegisterData>) => {
+    const onSubmit = async (
+        values: RegisterData,
+        { resetForm }: FormikHelpers<RegisterData>,
+    ) => {
         await dispatch(authActions.register(values));
         resetForm();
-    }
+    };
 
     return (
         <>
@@ -40,7 +63,13 @@ export const Register: React.FC = () => {
                     onSubmit={onSubmit}
                     validationSchema={validationSchema}
                 >
-                    {({ errors, handleChange, isSubmitting, touched, values }: FormikProps<RegisterData>) => (
+                    {({
+                        errors,
+                        handleChange,
+                        isSubmitting,
+                        touched,
+                        values,
+                    }: FormikProps<RegisterData>) => (
                         <Form>
                             <Stack
                                 direction={'column'}
@@ -50,7 +79,10 @@ export const Register: React.FC = () => {
                                 background={'white'}
                                 align={'stretch'}
                             >
-                                <Grid templateColumns={'repeat(2, 1fr)'} gap={4}>
+                                <Grid
+                                    templateColumns={'repeat(2, 1fr)'}
+                                    gap={4}
+                                >
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
                                         <Input
                                             isRequired
@@ -70,7 +102,10 @@ export const Register: React.FC = () => {
                                             placeholder="Walker"
                                             value={values.lastName}
                                             onChange={handleChange}
-                                            error={touched.lastName && errors.lastName}
+                                            error={
+                                                touched.lastName &&
+                                                errors.lastName
+                                            }
                                         />
                                     </GridItem>
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
@@ -88,7 +123,10 @@ export const Register: React.FC = () => {
                                             name="acceptTerms"
                                             label="Einverstanden?"
                                             checked={values.acceptTerms}
-                                            error={touched.acceptTerms && errors.acceptTerms}
+                                            error={
+                                                touched.acceptTerms &&
+                                                errors.acceptTerms
+                                            }
                                         />
                                     </GridItem>
                                     <GridItem colSpan={2}>
@@ -99,7 +137,7 @@ export const Register: React.FC = () => {
                                             placeholder="johnny.walker@drinks.com"
                                             value={values.email}
                                             onChange={handleChange}
-                                            autoComplete='current-email'
+                                            autoComplete="current-email"
                                         />
                                     </GridItem>
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
@@ -110,7 +148,10 @@ export const Register: React.FC = () => {
                                             label="Passwort"
                                             value={values.password}
                                             onChange={handleChange}
-                                            error={touched.password && errors.password}
+                                            error={
+                                                touched.password &&
+                                                errors.password
+                                            }
                                             color={'black'}
                                         />
                                     </GridItem>
@@ -122,18 +163,28 @@ export const Register: React.FC = () => {
                                             label="Passwort wiederholen"
                                             value={values.confirmPassword}
                                             onChange={handleChange}
-                                            error={touched.confirmPassword && errors.confirmPassword}
+                                            error={
+                                                touched.confirmPassword &&
+                                                errors.confirmPassword
+                                            }
                                             color={'black'}
                                         />
                                     </GridItem>
                                 </Grid>
-                                <Button type={'submit'} isLoading={isSubmitting}>
+                                <Button
+                                    type={'submit'}
+                                    isLoading={isSubmitting}
+                                >
                                     Registrieren
                                 </Button>
                                 <Flex justifyContent={'center'}>
-                                    <Text mr={1}>Bereits registriert? Dann jetzt</Text>
+                                    <Text mr={1}>
+                                        Bereits registriert? Dann jetzt
+                                    </Text>
                                     <Link to="../login">
-                                        <Button variant={'link'}>Anmelden!</Button>
+                                        <Button variant={'link'}>
+                                            Anmelden!
+                                        </Button>
                                     </Link>
                                 </Flex>
                             </Stack>
@@ -142,5 +193,5 @@ export const Register: React.FC = () => {
                 </Formik>
             </Box>
         </>
-    )
-}
+    );
+};
