@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ForgotPasswordData, IAuthState, LoginData, LoginResponse, RegisterData } from './types';
 import authService from './authService';
 import { alertActions } from 'features/alert/alert.slice';
+import { history } from 'helpers';
 
 // create slice
 
@@ -30,6 +31,14 @@ function createInitialState(): IAuthState {
 function createReducers() {
     return {
         setAuthData,
+        logout,
+    }
+
+    function logout(state: IAuthState) {
+        state.user = null;
+        state.jwtToken = null;
+        localStorage.removeItem('jbl.development.auth');
+        history.navigate && history.navigate('/user/login');
     }
 
     function setAuthData(state: IAuthState, action: PayloadAction<{ user: IAuthState['user']; jwtToken: string }>) {
