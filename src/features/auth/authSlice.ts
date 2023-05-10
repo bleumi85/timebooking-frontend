@@ -1,11 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-    ForgotPasswordData,
-    IAuthState,
-    LoginData,
-    LoginResponse,
-    RegisterData,
-} from './types';
+import { ForgotPasswordData, IAuthState, LoginData, LoginResponse, RegisterData } from './types';
 import authService from './authService';
 import { alertActions } from 'features/alert/alert.slice';
 import { history } from 'helpers';
@@ -67,9 +61,7 @@ function createExtraActions() {
         return createAsyncThunk<void, ForgotPasswordData>(
             `${name}/forgot-password`,
             async (forgotPasswordData: ForgotPasswordData, { dispatch }) => {
-                const { data } = await authService.forgotPassword(
-                    forgotPasswordData,
-                );
+                const { data } = await authService.forgotPassword(forgotPasswordData);
 
                 dispatch(alertActions.success(data.message));
             },
@@ -86,10 +78,7 @@ function createExtraActions() {
                 dispatch(authActions.setAuthData(data));
 
                 // store account details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem(
-                    'jbl.development.auth',
-                    JSON.stringify(data),
-                );
+                localStorage.setItem('jbl.development.auth', JSON.stringify(data));
 
                 return data;
             },

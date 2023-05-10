@@ -8,7 +8,7 @@ const PrivateRoute: React.FC = () => {
 
     if (!authUser) {
         // not logged in so redirect to register page with the return url
-        return <Navigate to="/user/login" state={{ from: history.location }} />;
+        return <Navigate to='/user/login' state={{ from: history.location }} />;
     }
 
     return <Outlet />;

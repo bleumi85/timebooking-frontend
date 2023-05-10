@@ -38,9 +38,7 @@ export const onRejectedResponse = (ex: any): Promise<APIError> => {
         if (typeof message === 'object') {
             message = message[0];
         }
-        store.dispatch(
-            alertActions.error({ title: error, description: message }),
-        );
+        store.dispatch(alertActions.error({ title: error, description: message }));
         return Promise.reject({
             error: error,
             message: message,
@@ -71,20 +69,14 @@ async function login(loginData: LoginData) {
 }
 
 async function forgotPassword(forgotPasswordData: ForgotPasswordData) {
-    return await publicRequest.post<MessageResponse>(
-        '/forgot-password',
-        forgotPasswordData,
-    );
+    return await publicRequest.post<MessageResponse>('/forgot-password', forgotPasswordData);
 }
 
 async function register(registerData: RegisterData) {
     return await publicRequest.post<MessageResponse>('/register', registerData);
 }
 
-async function resetPassword(
-    resetPasswordData: ResetPasswordData,
-    token: string,
-) {
+async function resetPassword(resetPasswordData: ResetPasswordData, token: string) {
     return await publicRequest.post<MessageResponse>('/reset-password', {
         ...resetPasswordData,
         token,

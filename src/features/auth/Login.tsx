@@ -51,41 +51,30 @@ export const Login: React.FC = () => {
                                 align={'stretch'}
                             >
                                 <Input
-                                    name="email"
+                                    name='email'
                                     value={values.email}
                                     onChange={handleChange}
                                     error={touched.email && errors.email}
-                                    autoComplete="current-email"
+                                    autoComplete='current-email'
                                     w={'100%'}
                                 />
                                 <Input
                                     password
-                                    name="password"
+                                    name='password'
                                     value={values.password}
                                     onChange={handleChange}
                                     error={touched.password && errors.password}
                                     color={'gray.700'}
                                 />
-                                <Button
-                                    type={'submit'}
-                                    variant={'solid'}
-                                    isLoading={isSubmitting}
-                                >
+                                <Button type={'submit'} variant={'solid'} isLoading={isSubmitting}>
                                     Anmelden
                                 </Button>
-                                <Stack
-                                    direction={'row'}
-                                    justifyContent={'space-between'}
-                                >
-                                    <Link to="../register">
-                                        <Button variant={'link'}>
-                                            Registrieren
-                                        </Button>
+                                <Stack direction={'row'} justifyContent={'space-between'}>
+                                    <Link to='../register'>
+                                        <Button variant={'link'}>Registrieren</Button>
                                     </Link>
-                                    <Link to="../forgot-password">
-                                        <Button variant={'link'}>
-                                            Passwort vergessen?
-                                        </Button>
+                                    <Link to='../forgot-password'>
+                                        <Button variant={'link'}>Passwort vergessen?</Button>
                                     </Link>
                                 </Stack>
                             </Stack>

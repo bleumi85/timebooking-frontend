@@ -43,9 +43,7 @@ export const Input: React.FC<CustomInputProps> = (props) => {
         <FormControl isInvalid={!!error} isRequired={isRequired}>
             <FormLabel htmlFor={name}>{label}</FormLabel>
             <InputGroup>
-                {icon && (
-                    <InputLeftElement pointerEvents={'none'} children={icon} />
-                )}
+                {icon && <InputLeftElement pointerEvents={'none'} children={icon} />}
                 <ChakraInput
                     id={name}
                     name={name}
@@ -59,16 +57,12 @@ export const Input: React.FC<CustomInputProps> = (props) => {
                 {password && (
                     <InputRightElement>
                         <IconButton
-                            aria-label="Show Password"
+                            aria-label='Show Password'
                             bg={'transparent'}
                             onClick={handleShow}
                             _hover={{ bg: 'transparent' }}
                         >
-                            {showPW ? (
-                                <ViewIcon color={color} />
-                            ) : (
-                                <ViewOffIcon color={color} />
-                            )}
+                            {showPW ? <ViewIcon color={color} /> : <ViewOffIcon color={color} />}
                         </IconButton>
                     </InputRightElement>
                 )}

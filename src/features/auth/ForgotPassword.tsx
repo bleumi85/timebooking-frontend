@@ -54,13 +54,13 @@ export const ForgotPassword: React.FC = () => {
                             >
                                 <Input
                                     isRequired
-                                    name="email"
-                                    label="E-Mail"
+                                    name='email'
+                                    label='E-Mail'
                                     value={values.email}
                                     onChange={handleChange}
                                     error={touched.email && errors.email}
                                 />
-                                <Button type="submit" isLoading={isSubmitting}>
+                                <Button type='submit' isLoading={isSubmitting}>
                                     Zurücksetzen
                                 </Button>
                             </Stack>

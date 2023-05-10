@@ -44,10 +44,7 @@ export const Register: React.FC = () => {
     });
 
     // submit
-    const onSubmit = async (
-        values: RegisterData,
-        { resetForm }: FormikHelpers<RegisterData>,
-    ) => {
+    const onSubmit = async (values: RegisterData, { resetForm }: FormikHelpers<RegisterData>) => {
         await dispatch(authActions.register(values));
         resetForm();
     };
@@ -79,16 +76,13 @@ export const Register: React.FC = () => {
                                 background={'white'}
                                 align={'stretch'}
                             >
-                                <Grid
-                                    templateColumns={'repeat(2, 1fr)'}
-                                    gap={4}
-                                >
+                                <Grid templateColumns={'repeat(2, 1fr)'} gap={4}>
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
                                         <Input
                                             isRequired
-                                            label="Vorname"
-                                            name="firstName"
-                                            placeholder="Johnny"
+                                            label='Vorname'
+                                            name='firstName'
+                                            placeholder='Johnny'
                                             value={values.firstName}
                                             onChange={handleChange}
                                             w={'100%'}
@@ -97,61 +91,52 @@ export const Register: React.FC = () => {
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
                                         <Input
                                             isRequired
-                                            name="lastName"
-                                            label="Nachname"
-                                            placeholder="Walker"
+                                            name='lastName'
+                                            label='Nachname'
+                                            placeholder='Walker'
                                             value={values.lastName}
                                             onChange={handleChange}
-                                            error={
-                                                touched.lastName &&
-                                                errors.lastName
-                                            }
+                                            error={touched.lastName && errors.lastName}
                                         />
                                     </GridItem>
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
                                         <Input
                                             isRequired
-                                            name="userName"
-                                            label="Benutzername"
-                                            placeholder="johnny.walker"
+                                            name='userName'
+                                            label='Benutzername'
+                                            placeholder='johnny.walker'
                                             value={values.userName}
                                             onChange={handleChange}
                                         />
                                     </GridItem>
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
                                         <Checkbox
-                                            name="acceptTerms"
-                                            label="Einverstanden?"
+                                            name='acceptTerms'
+                                            label='Einverstanden?'
                                             checked={values.acceptTerms}
-                                            error={
-                                                touched.acceptTerms &&
-                                                errors.acceptTerms
-                                            }
+                                            error={touched.acceptTerms && errors.acceptTerms}
                                         />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <Input
                                             isRequired
-                                            name="email"
-                                            label="Email Adresse"
-                                            placeholder="johnny.walker@drinks.com"
+                                            name='email'
+                                            label='Email Adresse'
+                                            placeholder='johnny.walker@drinks.com'
                                             value={values.email}
                                             onChange={handleChange}
-                                            autoComplete="current-email"
+                                            autoComplete='current-email'
                                         />
                                     </GridItem>
                                     <GridItem colSpan={{ base: 2, md: 1 }}>
                                         <Input
                                             password
                                             isRequired
-                                            name="password"
-                                            label="Passwort"
+                                            name='password'
+                                            label='Passwort'
                                             value={values.password}
                                             onChange={handleChange}
-                                            error={
-                                                touched.password &&
-                                                errors.password
-                                            }
+                                            error={touched.password && errors.password}
                                             color={'black'}
                                         />
                                     </GridItem>
@@ -159,32 +144,24 @@ export const Register: React.FC = () => {
                                         <Input
                                             password
                                             isRequired
-                                            name="confirmPassword"
-                                            label="Passwort wiederholen"
+                                            name='confirmPassword'
+                                            label='Passwort wiederholen'
                                             value={values.confirmPassword}
                                             onChange={handleChange}
                                             error={
-                                                touched.confirmPassword &&
-                                                errors.confirmPassword
+                                                touched.confirmPassword && errors.confirmPassword
                                             }
                                             color={'black'}
                                         />
                                     </GridItem>
                                 </Grid>
-                                <Button
-                                    type={'submit'}
-                                    isLoading={isSubmitting}
-                                >
+                                <Button type={'submit'} isLoading={isSubmitting}>
                                     Registrieren
                                 </Button>
                                 <Flex justifyContent={'center'}>
-                                    <Text mr={1}>
-                                        Bereits registriert? Dann jetzt
-                                    </Text>
-                                    <Link to="../login">
-                                        <Button variant={'link'}>
-                                            Anmelden!
-                                        </Button>
+                                    <Text mr={1}>Bereits registriert? Dann jetzt</Text>
+                                    <Link to='../login'>
+                                        <Button variant={'link'}>Anmelden!</Button>
                                     </Link>
                                 </Flex>
                             </Stack>

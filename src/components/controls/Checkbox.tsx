@@ -20,12 +20,7 @@ interface CustomCheckboxProps extends Partial<CheckboxProps> {
 
 export const Checkbox: React.FC<CustomCheckboxProps> = (props) => {
     const { align = 'left', checked, error, label, name } = props;
-    const myFlex =
-        align === 'left'
-            ? 'flex-start'
-            : align === 'right'
-            ? 'flex-end'
-            : align;
+    const myFlex = align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : align;
 
     const { setFieldValue } = useFormikContext();
 
@@ -39,15 +34,15 @@ export const Checkbox: React.FC<CustomCheckboxProps> = (props) => {
             <Flex justifyContent={myFlex}>
                 {checked ? (
                     <IconButton
-                        aria-label="checked"
-                        colorScheme="green"
+                        aria-label='checked'
+                        colorScheme='green'
                         icon={<CheckIcon />}
                         onClick={() => setFieldValue(name, false)}
                     />
                 ) : (
                     <IconButton
-                        aria-label="unchecked"
-                        colorScheme="red"
+                        aria-label='unchecked'
+                        colorScheme='red'
                         icon={<CloseIcon />}
                         onClick={() => setFieldValue(name, true)}
                     />

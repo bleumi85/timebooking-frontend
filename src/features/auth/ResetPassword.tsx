@@ -27,9 +27,7 @@ const TokenStatus = {
 
 export const ResetPassword: React.FC = () => {
     const [token, setToken] = useState<string>('');
-    const [tokenStatus, setTokenStatus] = useState<string>(
-        TokenStatus.Validating,
-    );
+    const [tokenStatus, setTokenStatus] = useState<string>(TokenStatus.Validating);
 
     const dispatch = useAppDispatch();
 
@@ -80,11 +78,7 @@ export const ResetPassword: React.FC = () => {
                     }
                 })
                 .catch(() => {
-                    dispatch(
-                        alertActions.error(
-                            'Da ist etwas gehörig schief gelaufen',
-                        ),
-                    );
+                    dispatch(alertActions.error('Da ist etwas gehörig schief gelaufen'));
                 });
         };
 
@@ -103,17 +97,12 @@ export const ResetPassword: React.FC = () => {
                         values,
                     }: FormikProps<ResetPasswordData>) => (
                         <Form>
-                            <Stack
-                                spacing={4}
-                                p={'1rem'}
-                                boxShadow={'md'}
-                                background={bg}
-                            >
+                            <Stack spacing={4} p={'1rem'} boxShadow={'md'} background={bg}>
                                 <Input
                                     password
                                     isRequired
-                                    name="password"
-                                    label="Passwort"
+                                    name='password'
+                                    label='Passwort'
                                     color={color}
                                     value={values.password}
                                     onChange={handleChange}
@@ -122,20 +111,14 @@ export const ResetPassword: React.FC = () => {
                                 <Input
                                     password
                                     isRequired
-                                    name="confirmPassword"
-                                    label="Passwort wiederholen"
+                                    name='confirmPassword'
+                                    label='Passwort wiederholen'
                                     color={color}
                                     value={values.confirmPassword}
                                     onChange={handleChange}
-                                    error={
-                                        touched.confirmPassword &&
-                                        errors.confirmPassword
-                                    }
+                                    error={touched.confirmPassword && errors.confirmPassword}
                                 />
-                                <Button
-                                    type={'submit'}
-                                    isLoading={isSubmitting}
-                                >
+                                <Button type={'submit'} isLoading={isSubmitting}>
                                     Ok
                                 </Button>
                             </Stack>
@@ -152,16 +135,13 @@ export const ResetPassword: React.FC = () => {
                 return getForm();
             case TokenStatus.Invalid:
                 return (
-                    <AlertMessage
-                        status="error"
-                        title="Validierung fehlgeschlagen"
-                    >
+                    <AlertMessage status='error' title='Validierung fehlgeschlagen'>
                         <Box>
                             <Text>
-                                Wenn die Anfrage abgelaufen ist, klicke hier um
-                                das Passwort erneut zurückzusetzen
+                                Wenn die Anfrage abgelaufen ist, klicke hier um das Passwort erneut
+                                zurückzusetzen
                             </Text>
-                            <Link to="../forgot-password">
+                            <Link to='../forgot-password'>
                                 <Button colorScheme={'red'} mt={2}>
                                     Klick
                                 </Button>
@@ -171,14 +151,12 @@ export const ResetPassword: React.FC = () => {
                 );
             case TokenStatus.Validating:
                 return (
-                    <AlertMessage status="loading" title="Warten">
+                    <AlertMessage status='loading' title='Warten'>
                         Anfrage wird validiert
                     </AlertMessage>
                 );
             default:
-                return (
-                    <Text color={'red.500'}>Da ist etwas schief gelaufen</Text>
-                );
+                return <Text color={'red.500'}>Da ist etwas schief gelaufen</Text>;
         }
     };
 

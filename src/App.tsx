@@ -16,10 +16,10 @@ const App: React.FC = () => {
             <Routes>
                 {/* private */}
                 <Route element={<PrivateRoute />}>
-                    <Route path="/" element={<Home />} />
+                    <Route path='/' element={<Home />} />
                 </Route>
                 {/* public */}
-                <Route path="user/*" element={<UserLayout />} />
+                <Route path='user/*' element={<UserLayout />} />
             </Routes>
         </Layout>
     );

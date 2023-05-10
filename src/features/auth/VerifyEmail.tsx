@@ -54,22 +54,19 @@ export const VerifyEmail: React.FC = () => {
         switch (emailStatus) {
             case EmailStatus.Verifying:
                 return (
-                    <TokenMessage status="info" title="Warten">
+                    <TokenMessage status='info' title='Warten'>
                         Anfrage wird validiert
                     </TokenMessage>
                 );
             case EmailStatus.Failed:
                 return (
-                    <TokenMessage
-                        status="error"
-                        title="Validierung fehlgeschlagen"
-                    >
+                    <TokenMessage status='error' title='Validierung fehlgeschlagen'>
                         <Box>
                             <Text>
-                                Wenn die Anfrage abgelaufen ist, klicke hier um
-                                das Passwort erneut zurückzusetzen
+                                Wenn die Anfrage abgelaufen ist, klicke hier um das Passwort erneut
+                                zurückzusetzen
                             </Text>
-                            <Link to="../forgot-password">
+                            <Link to='../forgot-password'>
                                 <Button colorScheme={'red'} mt={2}>
                                     Klick
                                 </Button>
@@ -78,9 +75,7 @@ export const VerifyEmail: React.FC = () => {
                     </TokenMessage>
                 );
             default:
-                return (
-                    <Text color={'red.500'}>Da ist etwas schief gelaufen!</Text>
-                );
+                return <Text color={'red.500'}>Da ist etwas schief gelaufen!</Text>;
         }
     };
 
@@ -100,11 +95,7 @@ type TokenMessageProps = {
     children: string | React.ReactElement;
 };
 
-const TokenMessage: React.FC<TokenMessageProps> = ({
-    status,
-    title,
-    children,
-}): JSX.Element => (
+const TokenMessage: React.FC<TokenMessageProps> = ({ status, title, children }): JSX.Element => (
     <Alert
         status={status}
         variant={'top-accent'}
