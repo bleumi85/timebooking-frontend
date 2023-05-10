@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { APIError, IAuthState, ILoginData, LoginResponse } from './types';
-// import authService from './authService';
-import axiosService, { InternalError } from './axiosService';
+import { ForgotPasswordData, IAuthState, LoginData, LoginResponse, RegisterData } from './types';
+import authService from './authService';
 import { alertActions } from 'features/alert/alert.slice';
 
 // create slice
@@ -42,55 +41,47 @@ function createReducers() {
 function createExtraActions() {
 
     return {
-        forgetPassword: forgotPassword(),
+        forgotPassword: forgotPassword(),
         login: login(),
+        register: register(),
     }
 
     function forgotPassword() {
+        return createAsyncThunk<void, ForgotPasswordData>(
+            `${name}/forgot-password`,
+            async (forgotPasswordData: ForgotPasswordData, { dispatch }) => {
+                const { data } = await authService.forgotPassword(forgotPasswordData);
 
-    }
-
-    function login() {
-        return createAsyncThunk<LoginResponse, ILoginData, { rejectValue: APIError }>(
-            `${name}/login`,
-            async (loginData: ILoginData, { dispatch, rejectWithValue }) => {
-                try {
-                    const { data } = await axiosService.login(loginData);
-
-                    // set auth user in redux store
-                    dispatch(authActions.setAuthData(data));
-
-                    // store account details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('jbl.development.auth', JSON.stringify(data));
-
-                    return data;
-                } catch (ex) {
-                    const payload = getExceptionPayload(ex);
-                    dispatch(alertActions.error({ title: payload.error, description: payload.message }));
-                    return rejectWithValue(payload);
-                }
+                dispatch(alertActions.success(data.message));
             }
         )
     }
-}
 
-const getExceptionPayload = (ex: unknown): APIError => {
-    console.log({ foo: typeof ex })
+    function login() {
+        return createAsyncThunk<LoginResponse, LoginData>(
+            `${name}/login`,
+            async (loginData: LoginData, { dispatch }) => {
+                const { data } = await authService.login(loginData);
 
-    if (typeof ex !== "object" || !ex) {
-        return InternalError;
+                // set auth user in redux store
+                dispatch(authActions.setAuthData(data));
+
+                // store account details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('jbl.development.auth', JSON.stringify(data));
+
+                return data;
+            }
+        )
     }
 
-    const typedException = ex as APIError;
-    if (ex.hasOwnProperty('error') && typeof typedException.error === 'string' &&
-        ex.hasOwnProperty('message') && typeof typedException.message === 'string' &&
-        ex.hasOwnProperty('code') && typeof typedException.code === 'number') {
-        return {
-            error: typedException.error,
-            message: typedException.message,
-            code: typedException.code
-        };
-    }
+    function register() {
+        return createAsyncThunk<void, RegisterData>(
+            `${name}/register`,
+            async (registerData: RegisterData, { dispatch }) => {
+                const { data } = await authService.register(registerData);
 
-    return InternalError;
+                dispatch(alertActions.success(data.message))
+            }
+        )
+    }
 }

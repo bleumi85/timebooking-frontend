@@ -13,7 +13,7 @@ export interface IAuthState {
     jwtToken: string | null;
 }
 
-export interface ILoginData {
+export type LoginData = {
     email: string;
     password: string;
 }
@@ -21,6 +21,16 @@ export interface ILoginData {
 export type LoginResponse = {
     user: IUser;
     jwtToken: string;
+}
+
+export type RegisterData = {
+    userName: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    acceptTerms: boolean;
 }
 
 export enum APIStatus { IDLE, PENDING, REJECTED, FULFILLED }
@@ -35,4 +45,17 @@ export type APIData<DataType = any> = {
     status: APIStatus;
     error?: APIError;
     data?: DataType
+}
+
+export type MessageResponse = {
+    message: string;
+}
+
+export type ForgotPasswordData = {
+    email: string;
+}
+
+export type ResetPasswordData = {
+    password: string;
+    confirmPassword: string;
 }
