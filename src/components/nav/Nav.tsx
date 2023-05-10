@@ -14,12 +14,12 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MdSchedule } from 'react-icons/md';
 // import { RiAdminLine } from 'react-icons/ri';
-import { adminLinks, userLinks } from './menuLinks';
-import MenuLink from './MenuLink';
+import { adminLinks, userLinks } from './navLinks';
+import CustomNavLink from './NavLink';
 import { authActions } from 'features/auth/authSlice';
 import { Link } from 'react-router-dom';
 
-const Menu: React.FC = () => {
+const Nav: React.FC = () => {
     const { isOpen, onToggle } = useDisclosure();
     const { toggleColorMode } = useColorMode();
 
@@ -53,11 +53,11 @@ const Menu: React.FC = () => {
                 >
                     {isAdmin &&
                         adminLinks.map(({ label, target }, idx) => (
-                            <MenuLink key={idx} label={label} target={target} />
+                            <CustomNavLink key={idx} label={label} target={target} />
                         ))}
                     {authUser &&
                         userLinks.map(({ label, target }, idx) => (
-                            <MenuLink key={idx} label={label} target={target} />
+                            <CustomNavLink key={idx} label={label} target={target} />
                         ))}
                 </HStack>
                 <Flex alignItems={'center'}>
@@ -73,7 +73,7 @@ const Menu: React.FC = () => {
                                 Abmelden
                             </Box>
                         ) : (
-                            <MenuLink label="Login" target="/user/login" />
+                            <CustomNavLink label="Login" target="/user/login" />
                         )}
                     </HStack>
                 </Flex>
@@ -138,4 +138,4 @@ const Logo = (): JSX.Element => (
     </Box>
 );
 
-export default Menu;
+export default Nav;

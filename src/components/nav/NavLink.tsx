@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { IMenuItem } from './menuLinks';
+import { CustomNavLinkProps } from './navLinks';
 
-const MenuLink: React.FC<IMenuItem> = ({ label, target }) => (
+const CustomNavLink: React.FC<CustomNavLinkProps> = ({ label, target }) => (
     <NavLink
         to={target}
         style={({ isActive }) => {
@@ -16,4 +16,4 @@ const MenuLink: React.FC<IMenuItem> = ({ label, target }) => (
     </NavLink>
 );
 
-export default MenuLink;
+export default CustomNavLink;

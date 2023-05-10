@@ -1,12 +1,12 @@
-export interface IMenuItem {
+export interface CustomNavLinkProps {
     label: string;
     target: string;
 }
 
-export const userLinks: IMenuItem[] = [
+export const userLinks: CustomNavLinkProps[] = [
     { label: 'Orte', target: 'locations' },
     { label: 'Tätigkeiten', target: 'tasks' },
     { label: 'Buchungen', target: 'schedules' },
 ];
 
-export const adminLinks: IMenuItem[] = [{ label: 'Admin', target: 'admin' }];
+export const adminLinks: CustomNavLinkProps[] = [{ label: 'Admin', target: 'admin' }];
