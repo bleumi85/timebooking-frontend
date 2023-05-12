@@ -1,15 +1,20 @@
-export interface IUser {
+import { Role } from 'common/types';
+
+export interface MinimalUser {
     id: string;
     firstName: string;
     lastName: string;
+}
+
+export interface User extends MinimalUser {
     userName: string;
     email: string;
-    role: 'Admin' | 'User' | 'Visitor';
+    role: Role;
     isVerified: boolean;
 }
 
-export interface IAuthState {
-    user: IUser | null;
+export type AuthState = {
+    user: User | null;
     jwtToken: string | null;
 }
 
@@ -19,7 +24,7 @@ export type LoginData = {
 };
 
 export type LoginResponse = {
-    user: IUser;
+    user: User;
     jwtToken: string;
 };
 

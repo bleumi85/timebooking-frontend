@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ForgotPasswordData, IAuthState, LoginData, LoginResponse, RegisterData } from './types';
+import { ForgotPasswordData, AuthState, LoginData, LoginResponse, RegisterData } from './types';
 import authService from './authService';
 import { alertActions } from 'features/alert/alert.slice';
 import { history } from 'helpers';
@@ -7,7 +7,7 @@ import { history } from 'helpers';
 // create slice
 
 const name = 'auth';
-const initialState: IAuthState = createInitialState();
+const initialState: AuthState = createInitialState();
 const reducers = createReducers();
 const extraActions = createExtraActions();
 const authSlice = createSlice({ name, initialState, reducers });
@@ -18,11 +18,11 @@ export default authSlice.reducer;
 
 // implementation
 
-function createInitialState(): IAuthState {
+function createInitialState(): AuthState {
     const storedAuthData = localStorage.getItem('jbl.development.auth');
-    let parsedAuthData: IAuthState | null = null;
+    let parsedAuthData: AuthState | null = null;
     if (storedAuthData) {
-        parsedAuthData = JSON.parse(storedAuthData) as IAuthState;
+        parsedAuthData = JSON.parse(storedAuthData) as AuthState;
     }
 
     return parsedAuthData || { user: null, jwtToken: null };
@@ -34,7 +34,7 @@ function createReducers() {
         logout,
     };
 
-    function logout(state: IAuthState) {
+    function logout(state: AuthState) {
         state.user = null;
         state.jwtToken = null;
         localStorage.removeItem('jbl.development.auth');
@@ -42,8 +42,8 @@ function createReducers() {
     }
 
     function setAuthData(
-        state: IAuthState,
-        action: PayloadAction<{ user: IAuthState['user']; jwtToken: string }>,
+        state: AuthState,
+        action: PayloadAction<{ user: AuthState['user']; jwtToken: string }>,
     ) {
         state.user = action.payload.user;
         state.jwtToken = action.payload.jwtToken;
@@ -76,6 +76,10 @@ function createExtraActions() {
 
                 // set auth user in redux store
                 dispatch(authActions.setAuthData(data));
+
+                if (history.navigate) {
+                    history.navigate('/');
+                }
 
                 // store account details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('jbl.development.auth', JSON.stringify(data));

@@ -1,15 +1,24 @@
 import { Avatar, Box, Button, Heading, Spacer, Stack } from '@chakra-ui/react';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Input } from 'components/controls';
 import { Form, Formik, FormikProps } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { LoginData } from './types';
 import { authActions } from './authSlice';
+import { history } from 'helpers';
 
 export const Login: React.FC = () => {
     const dispatch = useAppDispatch();
+    const { user: authUser } = useAppSelector(state => state.auth);
+
+    useEffect(() => {
+        // redirect to profile page if already logged in
+        if (authUser && history.navigate) {
+            history.navigate('/user/profile')
+        }
+    });
 
     // initial values
     const initialValues: LoginData = { email: '', password: '' };

@@ -13,13 +13,13 @@ import {
 } from '@chakra-ui/react';
 import { useAppDispatch } from 'app/hooks';
 import { authActions } from 'features/auth/authSlice';
-import { IUser } from 'features/auth/types';
+import { User } from 'features/auth/types';
 import React, { useCallback } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 type NavMenuProps = {
-    authUser: IUser;
+    authUser: User;
 };
 
 export const NavMenu: React.FC<NavMenuProps> = ({ authUser }) => {

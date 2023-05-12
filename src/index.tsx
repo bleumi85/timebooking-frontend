@@ -20,6 +20,7 @@ const customTheme = extendTheme(
         colors: {
             primary: theme.colors.blue,
             secondary: theme.colors.purple,
+            danger: theme.colors.red,
         },
         styles: {
             global: (props: StyleFunctionProps) => ({
